@@ -105,7 +105,9 @@ export const Play=(parametro)=>{
     const handsJugador = div.querySelector(".hands-jugador")
     const timerEle = div.querySelector(".contador")
     for(const img of images.children){
-        img.addEventListener("click",e=>{
+        function removeListeners(e) {
+            // removemos el evento
+            e.target.removeEventListener(e.type, removeListeners);
             const clase = img.getAttribute("class")
             clearInterval(intervalo)
             if(clase === "papel-jugador"){
@@ -121,10 +123,9 @@ export const Play=(parametro)=>{
             }else{
                 state.moveGame("piedra")
                 toWin("piedra")
-
-
             }
-        })
+            }
+        img.addEventListener("click",removeListeners)
     }
     
     const toWin=(params)=>{
@@ -135,18 +136,18 @@ export const Play=(parametro)=>{
         if(params === "piedra"){
             piedra?.classList.add("hand-selected")
             handsJugador?.classList.add("jugando")
-            papel?.classList.add("hand-no-selected")
-            tijeras?.classList.add("hand-no-selected")
+            papel?.remove()
+            tijeras?.remove()
         }else if(params === "papel"){
             handsJugador?.classList.add("jugando")
             papel?.classList.add("hand-selected")
-            piedra?.classList.add("hand-no-selected")
-            tijeras?.classList.add("hand-no-selected")
+            piedra?.remove()
+            tijeras?.remove()
         }else if(params === "tijeras"){
             handsJugador?.classList.add("jugando")
             tijeras?.classList.add("hand-selected")
-            piedra?.classList.add("hand-no-selected")
-            papel?.classList.add("hand-no-selected")
+            piedra?.remove()
+            papel?.remove()
         }
         
         timerEle?.remove()

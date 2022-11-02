@@ -12,10 +12,12 @@ export const Ganaste=(params)=>{
     style.innerHTML = `
         .contenedor{
             width:${100}vw;
+            height: ${100}vh;
             background-color: var(--fondo-verde);
             display:flex;
             flex-direction:column;
             align-items:center;
+            justify-content:center;
         }
         @media(min-width:960px){
             .contenedor{
