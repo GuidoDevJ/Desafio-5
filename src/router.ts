@@ -62,9 +62,14 @@ export function initRouter(container: Element) {
         }
     }
   }
-  if(isGithubPages() + "/" || location.pathname === "/"){
-    goTo("/home")
-}else{
+  if (location.host.includes("github.io")) {
+    goTo("/home");
+} else if (location.pathname == "/") {
+    goTo("/home");
+} else {
     handleRoute(location.pathname)
+}
+window.onpopstate = function () {
+    handleRoute(location.pathname);
 }
 }
